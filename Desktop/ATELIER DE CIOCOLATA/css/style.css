@@ -1,0 +1,387 @@
+:root {
+  /* Culori folosite in toata interfata. */
+  color-scheme: dark;
+  --bg-start: #110017;
+  --bg-end: #2d0047;
+  --surface: rgba(255, 255, 255, 0.08);
+  --surface-strong: rgba(255, 255, 255, 0.14);
+  --border: rgba(255, 255, 255, 0.16);
+  --text: #f6ebff;
+  --text-muted: #d8c0ff;
+  --accent: #b85cff;
+  --accent-strong: #f4e3ff;
+  --shadow: 0 30px 90px rgba(0, 0, 0, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: radial-gradient(circle at top left, rgba(255, 150, 255, 0.16), transparent 24%),
+              radial-gradient(circle at bottom right, rgba(110, 20, 180, 0.28), transparent 20%),
+              linear-gradient(140deg, var(--bg-start), var(--bg-end));
+  color: var(--text);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.08), transparent 12%),
+                    radial-gradient(circle at 90% 20%, rgba(255, 255, 255, 0.06), transparent 8%),
+                    linear-gradient(90deg, rgba(255,255,255,0.02), transparent 12%, transparent 88%, rgba(255,255,255,0.02));
+  pointer-events: none;
+}
+
+header {
+  /* Header-ul ramane sus si contine meniul principal. */
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(16px);
+  background: rgba(12, 0, 21, 0.80);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 24px 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 2.4vw, 3rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(188, 99, 255, 0.35);
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin: 18px auto 0;
+}
+
+nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 999px;
+  transition: transform 0.28s ease, color 0.28s ease, background 0.28s ease;
+}
+
+nav a:hover,
+nav a:focus-visible {
+  color: var(--accent-strong);
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-1px);
+}
+
+#userBar {
+  margin-top: 16px;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+#userBar .button-link {
+  margin-top: 0;
+}
+
+main {
+  /* Continutul paginilor este centrat pentru o interfata mai ordonata. */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 26px;
+  padding: 32px 16px 60px;
+  text-align: center;
+}
+
+.card {
+  /* Cardurile sunt blocurile vizuale principale din pagini. */
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 28px;
+  width: 100%;
+  max-width: 1120px;
+  color: var(--text);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transform: translateZ(0);
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.01);
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 45px 110px rgba(0, 0, 0, 0.30);
+}
+
+h2,
+h3 {
+  margin: 0 0 12px;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 2vw, 2.6rem);
+  letter-spacing: 0.04em;
+}
+
+h3 {
+  font-size: 1.3rem;
+}
+
+p {
+  line-height: 1.75;
+  color: var(--text-muted);
+}
+
+#product-list,
+#admin-products,
+#cart-items {
+  /* Listele de produse folosesc grid ca sa se adapteze la ecran. */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+  width: min(100%, 1120px);
+  margin: 0 auto;
+}
+
+.product,
+.card.cart-item {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.card.fade-in {
+  animation: fadeInUp 0.7s ease both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+img {
+  width: 100%;
+  border-radius: 18px;
+  display: block;
+  object-fit: cover;
+  margin-bottom: 18px;
+  filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.15));
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 14px 16px;
+  margin: 10px 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  border-radius: 14px;
+  text-align: center;
+}
+
+button,
+.button-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 20px;
+  margin-top: 16px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #8138ff, #da81ff);
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: transform 0.28s ease, box-shadow 0.28s ease, filter 0.28s ease;
+  text-decoration: none;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+button:hover,
+.button-link:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 18px 35px rgba(168, 78, 255, 0.35);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.message {
+  width: min(100%, 780px);
+  margin: 0 auto;
+  padding: 16px 20px;
+  border-radius: 18px;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.message.success {
+  background: rgba(43, 210, 118, 0.16);
+  color: #e8ffed;
+}
+
+.message.error {
+  background: rgba(255, 92, 122, 0.18);
+  color: #ffe5ec;
+}
+
+.auth-container,
+.auth-box,
+.auth-tabs,
+.auth-box input,
+.auth-box button {
+  width: 100%;
+}
+
+.auth-container {
+  /* Login/Register este centrat vertical si orizontal. */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.auth-box {
+  max-width: 420px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 30px;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: rgba(129, 56, 255, 0.18) 0 40px 90px;
+  text-align: center;
+}
+
+.auth-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.auth-tabs a {
+  padding: 14px 0;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+  text-align: center;
+  text-decoration: none;
+}
+
+.auth-tabs a.active {
+  background: linear-gradient(135deg, #7a00cc, #bb66ff);
+  color: white;
+}
+
+.wide-card {
+  max-width: 780px;
+}
+
+form:not(#cart-items) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card > *,
+.auth-box > * {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.product,
+.card.cart-item,
+#product-list .card,
+#admin-products .card,
+#cart-items .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+code {
+  padding: 6px 10px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.24);
+  color: #f3e9ff;
+}
+
+.card > code {
+  display: block;
+  overflow-x: auto;
+}
+
+@media (max-width: 860px) {
+  header {
+    padding: 20px 16px;
+  }
+
+  nav {
+    gap: 10px;
+  }
+
+  #userBar {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 640px) {
+  main {
+    padding: 24px 12px 48px;
+  }
+
+  .card {
+    border-radius: 20px;
+    padding: 22px;
+  }
+
+  button,
+  .button-link {
+    width: min(100%, 320px);
+  }
+
+  .auth-box button {
+    width: min(100%, 320px);
+  }
+}
